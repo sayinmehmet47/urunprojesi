@@ -13,7 +13,16 @@ export const favorites = createSlice({
     loading: false,
     data: [],
   },
-  reducers: {},
+  reducers: {
+    toggleFavorite: (state, action) => {
+      state.data = state.data.map((product) => {
+        if (product.id === action.payload) {
+          product.isFavorite = !product.isFavorite;
+        }
+        return product;
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchFavorites.pending, (state) => {
       state.loading = true;
@@ -28,4 +37,5 @@ export const favorites = createSlice({
   },
 });
 
+export const { toggleFavorite } = favorites.actions;
 export default favorites.reducer;

@@ -4,12 +4,24 @@ import NavbarComponent from '../components/Navbar';
 import Footer from '../components/Footer';
 
 import { MdFavorite } from 'react-icons/md';
-import { fetchFavorites } from '../redux/favorites';
+import { fetchFavorites, toggleFavorite } from '../redux/favorites';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 export default function FavoritesPage() {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.data);
+
+  const handleFavorite = (id) => {
+    axios
+      .post(`${process.env.REACT_APP_API_BASE_URL}/favorites`, {
+        productId: id,
+      })
+      .then((res) => {
+        console.log(res.data);
+        dispatch(toggleFavorite(id));
+      });
+  };
 
   useEffect(() => {
     dispatch(fetchFavorites());
@@ -32,7 +44,12 @@ export default function FavoritesPage() {
               </Card.Body>
               <Card.Footer>
                 <small className="text-muted">{favorite.price} £</small>
-                <MdFavorite className="float-end " color="red" size={22} />
+                <MdFavorite
+                  className="float-end "
+                  color={favorite.isFavorite ? '#ff0000' : '#ccc'}
+                  onClick={() => handleFavorite(favorite.id)}
+                  size={40}
+                />{' '}
               </Card.Footer>
             </Card>
           </Col>

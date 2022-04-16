@@ -16,7 +16,11 @@ export const product = createSlice({
     loading: false,
     data: [],
   },
-  reducers: {},
+  reducers: {
+    favorites: (state, action) => {
+      state.data.isFavorite = !state.data.isFavorite;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchProduct.pending, (state) => {
       state.loading = true;
@@ -31,6 +35,6 @@ export const product = createSlice({
   },
 });
 
-export const { addProduct, reset, removeSelected } = product.actions;
+export const { favorites } = product.actions;
 
 export default product.reducer;
