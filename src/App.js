@@ -1,56 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import FavoritesPage from './pages/FavoritesPage';
+import HomePage from './pages/HomePage';
+import ProductDetailsPage from './pages/ProductDetailsPage';
+import './App.scss';
+import CategoriesDetails from './pages/CategoriesDetails';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div className="App d-flex flex-column min-vh-100">
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="about" element={<FavoritesPage />} />
+        <Route path="favorites" element={<FavoritesPage />} />
+        <Route path="products/:id" element={<ProductDetailsPage />} />
+        <Route path="categories/:id/products" element={<CategoriesDetails />} />
+      </Routes>
     </div>
   );
 }
